@@ -32,9 +32,9 @@ const userSlice = createSlice({
             state.push(action.payload)
             console.log(state)
         },
-        clearUser: (state, action) => {
-            // state = {}
-        }
+        // clearUser: (state, action) => {
+        //     // state = {}
+        // }
     }, extraReducers: (builder) => {
         builder.addCase(getUserDetails.fulfilled,(state, action) => {
             console.log(action.payload)

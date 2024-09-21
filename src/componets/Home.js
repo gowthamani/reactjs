@@ -166,40 +166,40 @@ function Login() {
     dispatch(getUserDetails("gowtham"))
 
     debugger
-    // await axios.post('http://localhost:4000/api/login', {
-    //   body: obj,
+    await axios.post('http://localhost:4000/api/login', {
+      body: obj,
 
-    // }, {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
-    // ).then((response) => {
-    //   debugger
-    //   const resolveAfter3Sec = new Promise((resolve, reject) => {
-    //     if (response.data.responseType == 'S') {
-    //       dispatch(setUser(response.data.responseBody))
-    //       resolve()
-    //     } else {
-    //       reject()
-    //     }
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    ).then((response) => {
+      debugger
+      const resolveAfter3Sec = new Promise((resolve, reject) => {
+        if (response.data.responseType == 'S') {
+          resolve()
+          dispatch(setUser(response.data.responseBody))
+        } else {
+          reject()
+        }
 
-    //   });
-    //   toast.promise(
-    //     resolveAfter3Sec,
-    //     {
-    //       pending: 'Fetching',
-    //       success: {
+      });
+      toast.promise(
+        resolveAfter3Sec,
+        {
+          pending: 'Fetching',
+          success: {
 
-    //         render() {
-    //           return navigate('dashboard')
-    //         },
-    //       },
-    //       error: 'Wrong Credentials 🤯'
-    //     },
-    //     { theme: "light", position: "bottom-right", closeOnClick: "true" }
-    //   )
-    // })
+            render() {
+              return navigate('dashboard')
+            },
+          },
+          error: 'Wrong Credentials 🤯'
+        },
+        { theme: "light", position: "bottom-right", closeOnClick: "true" }
+      )
+    })
 
   };
 
@@ -265,21 +265,22 @@ function Login() {
 
 
 function Register() {
-  debugger
-  
-
+    // resolver:zodResolver(schema)
   const schema = z.object({
+    name:z.string(),
+    password:z.string(),
+    conpassword:z.string(),
     email:z.string({
       required_error:"it must be string"
     }).email({
       message:"email"
-    })
+    }),
+    phno:z.string()
   })
-  const { register,handleSubmit,setError,formState:{errors,isValid} } = useForm({
+  const { register,handleSubmit,setError,formState:{errors} } = useForm({
     defaultValues:{
       email:"gowthammani@azentio.com"
-    },
-    resolver:zodResolver(schema)
+    }
   })
 
 
@@ -298,39 +299,39 @@ function Register() {
     }
 
     debugger
-    // await axios.post('http://localhost:4000/api/register', {
-    //   body: obj,
+    await axios.post('http://localhost:4000/api/register', {
+      body: obj,
 
-    // }, {
-    //   headers: {
-    //     'Content-Type': 'application/json'
-    //   }
-    // }
-    // ).then((data) => {
-    //   if (data.responseType == "S") {
-    //     toast.success(data.responseBody, {
-    //       position: "botttom-right",
-    //       autoClose: 2000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: "light",
-    //     })
-    //   } else {
-    //     toast.error(data.responseBody, {
-    //       position: "botttom-right",
-    //       autoClose: 2000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true,
-    //       progress: undefined,
-    //       theme: "light",
-    //     })
-    //   }
-    // })
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    ).then((data) => {
+      if (data.responseType == "S") {
+        toast.success(data.responseBody, {
+          position: "botttom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      } else {
+        toast.error(data.responseBody, {
+          position: "botttom-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
+    })
 
   }
 
