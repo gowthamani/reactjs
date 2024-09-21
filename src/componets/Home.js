@@ -21,13 +21,13 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Input from "@mui/material/Input";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { UseDispatch } from "react-redux";
-import { customerSlice, setCustomer, setUser } from "../state-manager/slice"
+import { customerSlice, getlov, setCustomer, setUser } from "../state-manager/slice"
 import { pushUser } from "../state-manager/commondata"
 import {z,ZodType} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
 import {getUserDetails} from '../state-manager/slice'
 import Auth from "./auth";
+
 
 
 
@@ -137,10 +137,8 @@ function Login() {
 
   useEffect(() => {
     console.log("entered")
-    return () => {
-      console.log("exited")
-    }
-  }, [state])
+    return () => {}
+  })
 
 
 
@@ -162,9 +160,7 @@ function Login() {
       email: state.email,
       password: state.password
     }
-
-    dispatch(getUserDetails("gowtham"))
-
+    dispatch(getlov("gowtham"))
     debugger
     await axios.post('http://localhost:4000/api/login', {
       body: obj,
@@ -176,29 +172,12 @@ function Login() {
     }
     ).then((response) => {
       debugger
-      const resolveAfter3Sec = new Promise((resolve, reject) => {
         if (response.data.responseType == 'S') {
-          resolve()
           dispatch(setUser(response.data.responseBody))
+             navigate('dashboard')
         } else {
-          reject()
+          
         }
-
-      });
-      toast.promise(
-        resolveAfter3Sec,
-        {
-          pending: 'Fetching',
-          success: {
-
-            render() {
-              return navigate('dashboard')
-            },
-          },
-          error: 'Wrong Credentials 🤯'
-        },
-        { theme: "light", position: "bottom-right", closeOnClick: "true" }
-      )
     })
 
   };
@@ -279,7 +258,7 @@ function Register() {
   })
   const { register,handleSubmit,setError,formState:{errors} } = useForm({
     defaultValues:{
-      email:"gowthammani@azentio.com"
+      // email:"gowthammani@azentio.com"
     }
   })
 

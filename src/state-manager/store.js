@@ -7,7 +7,7 @@ import customerReducer from "./slice"
 export const store = configureStore({
     // devTools: true,
     reducer: {
-        user:userReducer,
+        // user:userReducer,
         util:utilReducer,
         // customer:customerReducer,
         commmon:rootReducer
