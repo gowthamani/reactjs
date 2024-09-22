@@ -21,12 +21,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Input from "@mui/material/Input";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { customerSlice, getlov, setCustomer, setUser } from "../state-manager/slice"
-import { pushUser } from "../state-manager/commondata"
+import { getlov,setUser } from "../state-manager/slice"
 import {z,ZodType} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
-import {getUserDetails} from '../state-manager/slice'
 import Auth from "./auth";
+// import { env } from 'node:process'
+
 
 
 
@@ -127,23 +127,16 @@ function Login() {
 
   const dispatch = useDispatch()
   const cutomer = useSelector((state) => state.common)
-
   const [state, setState] = useState({
     email: "",
     password: ""
   });
-
-  const [state123, setvalue] = useState(true)
-
   useEffect(() => {
     console.log("entered")
     return () => {}
   })
 
-
-
   const navigate = useNavigate();
-
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -162,7 +155,7 @@ function Login() {
     }
     dispatch(getlov("gowtham"))
     debugger
-    await axios.post('http://localhost:4000/api/login', {
+    await axios.post(process.env.REACT_APP_LOGIN, {
       body: obj,
 
     }, {
@@ -172,7 +165,7 @@ function Login() {
     }
     ).then((response) => {
       debugger
-        if (response.data.responseType == 'S') {
+        if (response.data.responseType === 'S') {
           dispatch(setUser(response.data.responseBody))
              navigate('dashboard')
         } else {
@@ -256,7 +249,7 @@ function Register() {
     }),
     phno:z.string()
   })
-  const { register,handleSubmit,setError,formState:{errors} } = useForm({
+  const { register,handleSubmit,formState:{errors} } = useForm({
     defaultValues:{
       // email:"gowthammani@azentio.com"
     }
@@ -276,9 +269,8 @@ function Register() {
       password: event.password,
       confirmpassword: event.conpassword
     }
-
     debugger
-    await axios.post('http://localhost:4000/api/register', {
+    await axios.post(process.env.REACT_REGISTER, {
       body: obj,
 
     }, {
@@ -287,7 +279,7 @@ function Register() {
       }
     }
     ).then((data) => {
-      if (data.responseType == "S") {
+      if (data.responseType === "S") {
         toast.success(data.responseBody, {
           position: "botttom-right",
           autoClose: 2000,
