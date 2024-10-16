@@ -22,6 +22,7 @@ import Input from "@mui/material/Input";
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { getlov,setUser } from "../state-manager/slice"
+import { loginuser } from "../state-manager/commondata"
 import {z,ZodType} from "zod"
 import {zodResolver} from "@hookform/resolvers/zod"
 import Auth from "./auth";
@@ -31,7 +32,7 @@ import Auth from "./auth";
 
 
 
-function Home() {
+export default function Home() {
 
 
 
@@ -127,6 +128,7 @@ function Login() {
 
   const dispatch = useDispatch()
   const cutomer = useSelector((state) => state.common)
+  const util = useSelector((state) => state.util)
   const [state, setState] = useState({
     email: "",
     password: ""
@@ -167,7 +169,9 @@ function Login() {
       debugger
         if (response.data.responseType === 'S') {
           dispatch(setUser(response.data.responseBody))
-             navigate('dashboard')
+          dispatch(loginuser(true))
+          sessionStorage.setItem('isloggedin',true)
+          navigate('dashboard')
         } else {
           
         }
@@ -362,7 +366,7 @@ function Register() {
   )
 }
 
-export default Auth(Home);
+
 
 
 

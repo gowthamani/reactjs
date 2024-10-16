@@ -1,21 +1,15 @@
-import React from 'react'
-import { useDispatch, useSelector } from "react-redux";
-
-
+import React from "react";
+import Errorpage from "../pages/errorpage";
 
 export default function Auth(Component) {
-    debugger
-//   const util = useSelector((state) => state.util)
-//   const dispatch = useDispatch()
-
-let flag = true
-  return function(){
-    if(!flag){
-        return <div>
-        user not authenticated
-        
-    </div>
+  debugger;
+  let flag =  sessionStorage.getItem("isloggedin")
+  return function () {
+    if (flag) {
+      return <Component />;
+    } else {
+      return <Errorpage />;
     }
-    return <Component />
-  }
+  };
 }
+

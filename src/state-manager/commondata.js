@@ -2,16 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const utility = {
     commondailog:false,
-    auth:true
+    auth:true,
+    isloggedin:false
 }
 
 const utilSlice = createSlice({
     name: 'util',
     initialState:utility,
     reducers: {
-        pushUser: (state, action) => {
+        loginuser: (state, action) => {
             debugger
-            // state.push(action.payload)
+            state.isloggedin = action.payload
         },
         changedailog : (state,action) => {
             debugger
@@ -27,6 +28,6 @@ const utilSlice = createSlice({
     }
 });
 
-export const { pushUser,changedailog } = utilSlice.actions;
+export const { loginuser,changedailog } = utilSlice.actions;
 
 export default utilSlice.reducer;
