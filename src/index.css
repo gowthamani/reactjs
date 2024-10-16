@@ -25,3 +25,10 @@ code {
   color: #dbddd3;
   text-align: center
 }
+
+.dashboard-menu{
+  padding: 40px 35px;
+  display: inline-flex;
+  height: 95px;
+  margin: 9px 27px;
+}
