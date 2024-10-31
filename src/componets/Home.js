@@ -157,7 +157,8 @@ function Login() {
     }
     dispatch(getlov("gowtham"))
     debugger
-    await axios.post(process.env.REACT_APP_LOGIN, {
+    let url = process.env.REACT_APP_API_URL+process.env.REACT_APP_LOGIN
+    await axios.post(url, {
       body: obj,
 
     }, {
@@ -173,8 +174,18 @@ function Login() {
           sessionStorage.setItem('isloggedin',true)
           navigate('dashboard')
         } else {
-          
+          toast.error(response.data.responseBody, {
+            position: "botttom-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: false,
+            theme: "light",
+          })
         }
+    }).catch((error)=>{
+      console.log(error)
     })
 
   };
